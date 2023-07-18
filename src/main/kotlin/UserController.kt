@@ -24,15 +24,17 @@ class UserController(
         if (userType != newType) {
             val delta = if (newType == "EMPLOYEE") 1 else -1
             val newNumber = numberOfEmployees + delta
-            company["numberOfEmployees"] = newNumber.toString()
-            company["companyDomainName"] = emailDomain
-            database.saveCompany(company)
+            val newCompany = company.toMutableMap()
+            newCompany["numberOfEmployees"] = newNumber.toString()
+            newCompany["companyDomainName"] = emailDomain
+            database.saveCompany(newCompany)
         }
 
-        user["email"] = newEmail
-        user["userType"] = newType
+        val newUser = user.toMutableMap()
+        newUser["email"] = newEmail
+        newUser["userType"] = newType
 
-        database.saveUser(user)
+        database.saveUser(newUser)
         mailer.sendEmailChangedMessage(userId, newEmail)
     }
 }
