@@ -1,10 +1,12 @@
+import java.lang.RuntimeException
+
 class UserController(
     private val database: Database,
     private val mailer: Mailer,
 ) {
 
     fun changeEmail(userId: String, newEmail: String) {
-        val user = database.getUserById(userId)!!
+        val user = database.getUserById(userId) ?: throw RuntimeException("ユーザーが見つかりませんでした。ユーザーID: $userId}")
 
         val email = user["email"]!!
         val userType = user["userType"]!!
