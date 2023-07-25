@@ -1,10 +1,12 @@
+@file:Suppress("NonAsciiCharacters")
+
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class SampleTest {
+class SampleJUnitTest {
 
     @Test
-    fun hoge() {
+    fun `~のとき、〇〇になること`() {
         assertEquals(1, 1)
     }
 }
