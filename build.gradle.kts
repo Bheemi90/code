@@ -16,6 +16,7 @@ dependencies {
     testImplementation("com.mikemybytes:junit5-formatted-source:1.0.0")
     testImplementation("io.kotest:kotest-assertions-core:5.6.2")
     testImplementation("io.kotest:kotest-runner-junit5:5.6.2")
+    testImplementation("ch.qos.logback:logback-classic:1.4.8")
 }
 
 tasks.test {
