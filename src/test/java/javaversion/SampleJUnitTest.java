@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SampleJUnitTest {
 
     @Test
-    public void test() {
+    public void 〇〇のとき〇〇になること() {
         assertEquals(1, 1);
     }
 }
