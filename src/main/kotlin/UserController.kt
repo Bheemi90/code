@@ -9,7 +9,6 @@ class UserController(
         val user = database.getUserById(userId) ?: throw RuntimeException("ユーザーが見つかりませんでした。ユーザーID: $userId}")
 
         val email = user["email"]!!
-        val userType = user["userType"]!!
 
         if (email == newEmail) {
             return
@@ -23,14 +22,12 @@ class UserController(
 
         val newType = if (emailDomain == companyDomainName) "EMPLOYEE" else "CUSTOMER"
 
-        if (userType != newType) {
-            val delta = if (newType == "EMPLOYEE") 1 else -1
-            val newNumber = numberOfEmployees + delta
-            val newCompany = company.toMutableMap()
-            newCompany["numberOfEmployees"] = newNumber.toString()
-            newCompany["companyDomainName"] = emailDomain
-            database.saveCompany(newCompany)
-        }
+        val delta = if (newType == "EMPLOYEE") 1 else -1
+        val newNumber = numberOfEmployees + delta
+        val newCompany = company.toMutableMap()
+        newCompany["numberOfEmployees"] = newNumber.toString()
+        newCompany["companyDomainName"] = emailDomain
+        database.saveCompany(newCompany)
 
         val newUser = user.toMutableMap()
         newUser["email"] = newEmail
