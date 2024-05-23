@@ -26,7 +26,7 @@ class UserController(
         val newNumber = numberOfEmployees + delta
         val newCompany = company.toMutableMap()
         newCompany["numberOfEmployees"] = newNumber.toString()
-        newCompany["companyDomainName"] = emailDomain
+        newCompany["companyDomainName"] = companyDomainName
         database.saveCompany(newCompany)
 
         val newUser = user.toMutableMap()
