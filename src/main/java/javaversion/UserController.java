@@ -33,7 +33,7 @@ public class UserController {
 
         var newCompany = new HashMap<>(company);
         newCompany.put("numberOfEmployees", String.valueOf(newNumber));
-        newCompany.put("companyDomainName", emailDomain);
+        newCompany.put("companyDomainName", companyDomainName);
         database.saveCompany(newCompany);
 
         var newUser = new HashMap<>(user);
