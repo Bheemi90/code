@@ -1,62 +1,62 @@
-# 問題
+# Problem
 
-- 後述の仕様を満たしながらユーザーのメールアドレスを変更する処理のテストコードの実装とリファクタリングをしてください。
-- 後述の仕様は一部実装が足りないものがあります。ソースコードを読み仕様の通り実装してください。
-- リファクタリング指針として、業務上のロジックと外部のシステム（データベースやメールサービス）に対しての処理を分離することを考えてください。
-- このシステムは継続的に開発されていく予定です。その前提でリファクタリングしてください。
-- リファクタリングの際に新しくクラスやメソッドが追加される場合、それはどんなものか、なぜそれを追加したのかをコードコメントに簡潔に記載してください。
-- 書き足したテストケースは全てパスするように実装してください。
-- 下記の仕様以上の実装はする必要はありません。厳密にはメールアドレスは空文字を許容しなかったり、一定の形式に沿って定義する必要がありますが、今回はそのような実装をする必要はありません。その他の常識的に考えて実装すべき仕様についても同様に今回は実装する必要はありません。
-- KotlinとJavaのバージョンを用意しています。どちらか一方を選び、その言語で実装してください。
+- Implement and refactor the test code for the process of changing the user's email address while satisfying the specifications described below.
+- Some parts of the specifications described below are not fully implemented. Please read the source code and implement it according to the specifications.
+- As a guideline for refactoring, consider separating the business logic and the processes that interact with external systems (such as databases or email services). This system is expected to undergo continuous development, so please refactor with that in mind.
+- When adding new classes or methods during refactoring, briefly document in the code comments what you added and why.
+- Ensure that all newly added test cases pass.
+- There is no need to implement beyond the specifications described below. While it's true that, strictly speaking, email addresses should not allow empty strings or should follow a certain format, there's no need to implement such validations this time. Similarly, you do not need to implement any other specifications that would be considered common sense.
+- Versions in both Kotlin and Java are provided. Please choose one of the languages and implement the task in that language.
 
-# 仕様
+# Specifications
 
-- もしユーザのメールアドレスに自社のドメイン名が含まれている場合、そのユーザの種類（userType）を従業員（EMPLOYEE）として登録し、そうでない場合は顧客（CUSTOMER）として登録する。
-- 登録されたユーザの中から従業員となるユーザーの数（numberOfEmployees）を管理し、もし、ユーザの種類が従業員から顧客に変わるのであれば、従業員数を減らし、その逆に顧客から従業員に変わるのであれば、従業員数を増やすようにする。
-- メールアドレスの変更ができたら、メールサービス（Mailer）にメッセージを送り、メールアドレスが変更されたことを外部のシステムに通知する。
-- 現在のメールアドレスが認証されているメールアドレス（isEmailConfirmed）のみ変更可能。
-- 変更後のメールアドレスは未認証のものとして保存する。
+- If the user's email address contains the company's domain name, the user's type (`userType`) should be registered as an employee (`EMPLOYEE`). If not, the user should be registered as a customer (`CUSTOMER`).
+- The system should manage the number of employees (`numberOfEmployees`) among the registered users. If the user's type changes from employee to customer, the employee count should decrease. Conversely, if the user's type changes from customer to employee, the employee count should increase.
+- Once the email address is successfully changed, the system should send a message to the mail service (`Mailer`) to notify external systems that the email address has been updated.
+- Only the current email address that is confirmed (`isEmailConfirmed`) can be changed.
+- The updated email address should be saved as unconfirmed.
 
-# 制約
+# Constraints
 
-- Database.ktはRDBMS相当のものとみなして扱うこと（MySQLなどのイメージ）。
-- Database.ktの実装は変更しないこと。ただしファイルの移動は可能。
-- Mailer.ktは外部のメールサービスにメッセージを送るものとして扱うこと（SendGridなどのイメージ）。処理を呼び出すと実際に外部のメールサービスを呼びだしメッセージが送られてしまう。
-- Mailer.ktの実装は変更しないこと。ただしファイルの移動は可能。
-- パッケージ、レイヤーなどは自由に定義できる。クラス、メソッドも自由に追加してもよい。
-- テスティングライブラリ含め必要ならば自由なものをインポートして使ってよい。テストケースは日本語でも英語でもよい。
+- Treat `Database.kt` as an equivalent to an RDBMS (e.g., MySQL).
+- Do not modify the implementation of `Database.kt`, but moving the file is allowed.
+- Treat `Mailer.kt` as a service that sends messages through an external mail service (e.g., SendGrid). When called, it will actually invoke the external mail service and send a message.
+- Do not modify the implementation of `Mailer.kt`, but moving the file is allowed.
+- You are free to define packages, layers, etc. You may also freely add classes and methods.
+- You can import and use any necessary libraries, including testing libraries. Test cases can be written in either Japanese or English.
 
-# 環境構築
+
+# Environment Setup
 
 ```
-// OpenJDK 11をダウンロード（Macの場合）
+// Download OpenJDK 11 (for Mac)
 brew tap homebrew/cask-versions
 brew install --cask temurin11
 
-// Main.ktを実行（Main.ktは評価対象ではありません）
+// Run Main.kt (Note: Main.kt is not part of the evaluation)
 ./gradlew run
 
-// テストを実行
+// Run the tests
 ./gradlew test
 ```
 
-# 評価項目
-下記の項目を上から優先して評価します。
+# Evaluation Criteria
+The following criteria will be evaluated in order of priority:
 
-- コードリーディング
-    - 既存のコードを読み解き、未実装の仕様を実装することができるか。
-- テストコード
-    - 仕様からテストケースを抜き出し、レイヤーごとのテストのメリットデメリットを考慮しながら適切な箇所に適切な量のテストコードを作成することができるか。その意思決定を説明できるか。
-    - Database.ktやMailer.ktのような外部のシステムをテストコード上でどう取り扱うか定義し、テストコードの保守性、実行スピードに気を配りながら実装できるか。その意思決定を説明できるか。
-    - テストケースを見ただけで、テスト対象のコードの仕様が理解できるか。
-- モデリング・リファクタリング
-    - 仕様において重要なロジックを定義し、それらを適切なモデルとしてまとめることができるか。
-    - なぜその責務を持つクラスにしたのかを説明することはできるか。
+- **Code Reading**
+  - Can you understand the existing code and implement the missing specifications?
+- **Test Code**
+  - Can you extract test cases from the specifications and create an appropriate amount of test code in the right places while considering the pros and cons of testing at different layers? Can you explain your decision-making process?
+  - Can you define how to handle external systems like `Database.kt` or `Mailer.kt` in the test code, while considering the maintainability and execution speed of the test code? Can you explain your decision-making process?
+  - Can the test cases clearly convey the specifications of the target code just by reading them?
+- **Modeling and Refactoring**
+  - Can you define important logic from the specifications and organize them into appropriate models?
+  - Can you explain why you assigned certain responsibilities to specific classes?
 
+# Submission Instructions
 
-# 提出方法
+- Zip the entire project, upload it to Google Drive, and send the shared link via email.
+  - There is no need to submit files under directories like `.gradle`, `.idea`, `build`, `.git`, etc.
+- It is prohibited to share the problem details externally. Do not push the project to a public GitHub repository or share it publicly in any other way.
+- You can submit up to two times. To prevent spending too much time, you are allowed to submit once the project has reached a certain stage. If you submit twice, the first submission will not be included in the evaluation.
 
-- プロジェクト全体をzipにまとめて、Google Driveにアップロードし、共有リンクをメールにて送ってください。
-    - .gradle, .idea, build, .git などのディレクトリ配下のファイルは提出不要です。
-- 問題内容は社外に公開することは禁止です。公開されたGitHubリポジトリにプッシュするなどの行為はしないでください。
-- 提出は最大で2回出すことができます。時間のかけすぎを防ぐためにも一定出来上がったタイミングで提出することができます。2回提出する場合の1回目の回答は評価に含まれません。
