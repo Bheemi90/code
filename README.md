@@ -1,3 +1,5 @@
+# 日本語はREADME.ja.mdをご覧ください
+
 # Problem
 
 - Implement and refactor the test code for the process of changing the user's email address while satisfying the specifications described below.
@@ -30,8 +32,7 @@
 
 ```
 // Download OpenJDK 11 (for Mac)
-brew tap homebrew/cask-versions
-brew install --cask temurin11
+brew install --cask temurin@11
 
 // Run Main.kt (Note: Main.kt is not part of the evaluation)
 ./gradlew run
