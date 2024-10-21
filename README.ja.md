@@ -30,8 +30,7 @@
 
 ```
 // OpenJDK 11をダウンロード（Macの場合）
-brew tap homebrew/cask-versions
-brew install --cask temurin11
+brew install --cask temurin@11
 
 // Main.ktを実行（Main.ktは評価対象ではありません）
 ./gradlew run

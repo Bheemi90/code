@@ -30,8 +30,7 @@
 
 ```
 // Download OpenJDK 11 (for Mac)
-brew tap homebrew/cask-versions
-brew install --cask temurin11
+brew install --cask temurin@11
 
 // Run Main.kt (Note: Main.kt is not part of the evaluation)
 ./gradlew run
