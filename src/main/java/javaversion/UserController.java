@@ -13,7 +13,7 @@ public class UserController {
 
     public void changeEmail(String userId, String newEmail) {
         var user = database.getUserById(userId)
-            .orElseThrow(() -> new RuntimeException("ユーザーが見つかりませんでした。ユーザーID: " + userId));
+            .orElseThrow(() -> new RuntimeException("User not found. User ID: " + userId));
 
         var email = user.get("email");
 

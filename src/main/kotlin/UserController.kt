@@ -6,7 +6,7 @@ class UserController(
 ) {
 
     fun changeEmail(userId: String, newEmail: String) {
-        val user = database.getUserById(userId) ?: throw RuntimeException("ユーザーが見つかりませんでした。ユーザーID: $userId")
+        val user = database.getUserById(userId) ?: throw RuntimeException("User not found. User ID: $userId")
 
         val email = user["email"]!!
 
