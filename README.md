@@ -1,3 +1,5 @@
+# 日本語はREADME.ja.mdをご覧ください
+
 # Problem
 
 - Implement and refactor the test code for the process of changing the user's email address while satisfying the specifications described below.
