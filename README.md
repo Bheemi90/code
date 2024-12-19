@@ -4,7 +4,7 @@
 
 - Implement and refactor the test code for the process of changing the user's email address while satisfying the specifications described below.
 - Some parts of the specifications described below are not fully implemented. Please read the source code and implement it according to the specifications.
-- As a guideline for refactoring, consider separating the business logic and the processes that interact with external systems (such as databases or email services). This system is expected to undergo continuous development, so please refactor with that in mind.
+- As a guideline for refactoring, consider appropriately extracting the data processed within the system into models, and separating the business logic and the processes that interact with external systems (such as databases or email services). This system is expected to undergo continuous development, so please refactor with that in mind.
 - When adding new classes or methods during refactoring, briefly document in the code comments what you added and why.
 - Ensure that all newly added test cases pass.
 - There is no need to implement beyond the specifications described below. While it's true that, strictly speaking, email addresses should not allow empty strings or should follow a certain format, there's no need to implement such validations this time. Similarly, you do not need to implement any other specifications that would be considered common sense.
