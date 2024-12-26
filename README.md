@@ -1,5 +1,53 @@
 # 日本語はREADME.ja.mdをご覧ください
 
+# New Changes - key functionalities added:
+
+- User Type Management: Check if the user type is correctly set as EMPLOYEE or CUSTOMER based on the email domain.
+- Employee Count Management: Ensure the system properly increases or decreases the numberOfEmployees when the user type changes.
+- Email Change Logic: Ensure email changes only occur if the email is confirmed (isEmailConfirmed), and that the email is saved as unconfirmed.
+- Mailer Notification: Ensure the mail service is notified after the email change.
+Here’s how we can write JUnit test cases for these functionalities:
+
+# Assumptions 
+- Added New code to UserRegistration.java Mailer.java and User.java
+- We have a class UserRegistration that contains the logic to manage users.
+- The Mailer class sends an email notification when an email is updated.
+
+# Explanation of Test Cases:
+
+New Test Cases in UserRegistrationTest.java
+
+- testDetermineUserTypeForEmployeeEmail():
+
+This test ensures that the determineUserType() method correctly identifies an employee email (john.doe@company.com).
+
+- testDetermineUserTypeForCustomerEmail():
+
+This test ensures that the determineUserType() method correctly identifies a customer email (jane.doe@gmail.com).
+
+- testEmployeeCountIncreasesWhenCustomerBecomesEmployee():
+
+This test checks that the numberOfEmployees is correctly updated when a customer’s email is changed to an employee email.
+
+- testEmployeeCountDecreasesWhenEmployeeBecomesCustomer():
+
+This test checks that the numberOfEmployees is correctly updated when an employee’s email is changed to a customer email.
+
+- testEmailChangeForConfirmedEmail():
+
+This test ensures that an email can only be changed if the email is confirmed (isEmailConfirmed = true).
+After the change, the new email should be saved as unconfirmed, and the user’s type should remain the same if the email still belongs to the company.
+
+- testEmailChangeForUnconfirmedEmailFails():
+
+This test checks that an email change attempt fails if the user’s email is not confirmed (isEmailConfirmed = false).
+
+
+- testMailerNotifiedAfterEmailChange():
+
+This test checks that the Mailer.sendEmailUpdateNotification() method is called when the email address is successfully changed.
+
+
 # Problem
 
 - Implement and refactor the test code for the process of changing the user's email address while satisfying the specifications described below.
@@ -60,4 +108,3 @@ The following criteria will be evaluated in order of priority:
   - There is no need to submit files under directories like `.gradle`, `.idea`, `build`, `.git`, etc.
 - It is prohibited to share the problem details externally. Do not push the project to a public GitHub repository or share it publicly in any other way.
 - You can submit up to two times. To prevent spending too much time, you are allowed to submit once the project has reached a certain stage. If you submit twice, the first submission will not be included in the evaluation.
-
